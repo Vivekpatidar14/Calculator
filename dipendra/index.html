@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+    integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+    crossorigin="anonymous"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+   
+  <title>Quotes</title>  
+  <style>
+    
+    body{
+    
+    
+     background-image: url("https://images.unsplash.com/photo-1677741447556-98353b626835?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80"); 
+    }
+    .container{   
+  
+  position: absolute;
+  top: 200px;
+  right: 400px;
+  
+  height: 100px;
+  width: 350px;
+  border: none;
+  
+  padding: 130px;
+  margin: 10px;
+}
+.quotes{   
+     
+    text-align: center;
+    text-decoration: none;
+    text-size-adjust: larger;
+    color: #089494;
+    font-size: larger;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+    font-style: normal ;
+
+}
+.author{  
+    padding: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;
+    color: rgb(244, 245, 247);
+
+    font-weight: 400;
+    
+}
+.button{ 
+    
+
+  background-color: #4CAF50;
+  border: none;
+  color: rgb(233, 220, 220);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 10px;
+  margin: 4px 2px;
+  cursor: pointer;
+
+}
+.button:hover {
+  background-color: #85cfe3; /* Green */
+  color: white;
+}
+
+</style>
+</head>
+<body class="container">
+   
+  <div class ="quotes"id="quotes"></div>
+  <div class ="author"id="author"></div>
+  <button class ="button" id="newQ">New Quotes</button>  
+      <script>
+        const quotes = document.getElementById('quotes');
+        const author = document.getElementById('author');
+        const newQ = document.getElementById('newQ')
+        let realData = [];
+        let quotesData=[];
+
+        const getNewQuotes = () => {
+          let rnum = Math.floor(Math.random()* 20);
+           quotesData=realData[rnum]
+           quotes.innerText= `${quotesData.text}`
+           quotesData.author == null
+          ? (author.innerText = "unKnown")
+          : (author.innerText = `${quotesData.author}`)
+          //     console.log(rnum);
+         //console.log(realData[rnum].text);
+       //console.log(realData[rnum].author);
+       //quotes.innerText= `${quotesData.text}`;
+          //author.innerText= `${quotesData.author}`;
+
+        };
+        const getQuotes = async () => {
+          const api = "http://type.fit/api/quotes";
+          try {
+            let data = await fetch(api);  
+             realData = await data.json();
+            getNewQuotes();
+           // console.log(realData[9].text);
+           //console.log(realData[9].author);
+          } catch (error) {}
+        };
+        newQ.addEventListener('click',getNewQuotes);
+        getQuotes();
+      </script>
+     
+  </body>
+</html>
